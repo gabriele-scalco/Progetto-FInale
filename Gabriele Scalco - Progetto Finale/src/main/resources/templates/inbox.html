@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inbox</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script>
+        // Funzione per aggiornare automaticamente la pagina ogni 30 secondi, simulando almost real time chat
+        setInterval(function() {
+            window.location.reload();
+        }, 30000);
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Inbox</h1>
+        <nav>
+            <a href="/profile">Profilo Utente</a>
+        </nav>
+        <nav>
+            <a href="/">Home</a>
+        </nav>
+    </header>
+    <main>
+        <!-- Sezione per la visualizzazione delle conversazioni -->
+        <section>
+            <div th:each="conversation : ${conversations}" class="conversation-box">
+                <h2 th:text="'Conversazione con ' + ${conversation.otherUser.name} + ' su ' + ${conversation.bike.brand}"></h2>
+
+                <div class="messages">
+                    <div th:each="message : ${conversation.messages}">
+                        <p th:class="${message.sender.id == currentUser.id} ? 'sent' : 'received'" 
+                           th:text="${message.content}"></p>
+                    </div>
+                </div>
+
+                <!-- Form per inviare una risposta -->
+                <form th:action="@{/messages/send}" th:object="${newMessage}" method="post">
+                    <input type="hidden" name="receiverId" th:value="${conversation.otherUser.id}" />
+                    <input type="hidden" name="bikeId" th:value="${conversation.bike.id}" />
+                    <textarea th:field="*{content}" rows="3" placeholder="Scrivi una risposta..."></textarea>
+                    <button type="submit">Invia</button>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

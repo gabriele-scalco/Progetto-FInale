@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profilo Utente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Profilo Utente</h1>
+        <nav>
+            <a href="/" class="nav-home">Home</a>
+        </nav>
+        <nav>
+            <a href="/messages/inbox" class="nav-home">Messaggi</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sezione per inserire una nuova bici -->
+        <div class="profile-section results-wrapper">
+            <h2>Aggiungi una Nuova Bicicletta</h2>
+            <form th:action="@{/bikes/add}" method="post" enctype="multipart/form-data" class="bike-form">
+                <div class="form-group">
+                    <label for="bikeType">Tipo di Bicicletta:</label>
+                    <select id="bikeType" name="bikeType" required>
+                        <option value="Mountain">Mountain</option>
+                        <option value="Road">Road</option>
+                        <option value="Electric">Electric</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="brand">Marca:</label>
+                    <input type="text" id="brand" name="brand" required />
+                </div>
+                <div class="form-group">
+                    <label for="size">Taglia:</label>
+                    <input type="text" id="size" name="size" required />
+                </div>
+                <div class="form-group">
+                    <label for="description">Descrizione:</label>
+                    <input type="text" id="description" name="description" required />
+                </div>
+                <div class="form-group">
+                    <label for="price">Prezzo:</label>
+                    <input type="number" id="price" name="price" required />
+                </div>
+                <div class="form-group">
+                    <label for="place">Regione:</label>
+                    <input type="text" id="place" name="place" required />
+                </div>
+                <div class="form-group">
+                    <label for="image">Foto della Bicicletta:</label>
+                    <input type="file" id="image" name="image" accept="image/*" />
+                </div>
+                <input type="hidden" name="userId" th:value="${user.id}" />
+                <button type="submit" class="submit-button">Salva Bicicletta</button>
+            </form>
+        </div>
+
+        <!-- Sezione per visualizzare gli annunci dell'utente -->
+        <section id="user-actions" class="results-wrapper">
+            <h2>I tuoi annunci</h2>
+            <div class="results-wrapper">
+                <div th:each="bike : ${bikes}" class="result-box">
+                    <div class="image-container">
+                        <img th:src="${bike.imagePath}" alt="Foto bici" class="bike-image" loading="lazy" />
+                    </div>
+                    <h3 th:text="${bike.brand}">Marca</h3>
+                    <p th:text="'Tipo: ' + ${bike.bikeType}">Tipo</p>
+                    <p th:text="'Taglia: ' + ${bike.size}">Taglia</p>
+                    <p th:text="'Descrizione: ' + ${bike.description}">Descrizione</p>
+                    <p th:text="'Prezzo: ' + ${bike.price}">Prezzo</p>
+                    <p th:text="'Regione: ' + ${bike.place}">Regione</p>
+                    <div class="button-group">
+                        <form th:action="@{/bikes/delete/{id}(id=${bike.id})}" method="post">
+                            <button type="submit" class="action-button delete-button">Elimina annuncio</button>
+                        </form>
+                        <form th:action="@{/bikes/edit/{id}(id=${bike.id})}" method="get">
+                            <button type="submit" class="action-button edit-button">Modifica annuncio</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sezione per visualizzare la wishlist dell'utente -->
+        <section id="user-wishlist" class="results-wrapper">
+            <h2>La tua Wishlist</h2>
+            <div class="results-wrapper">
+                <div th:each="bike : ${user.wishlist}" class="result-box">
+                    <div class="image-container">
+                        <img th:src="${bike.imagePath}" alt="Foto bici" class="bike-image" loading="lazy" />
+                    </div>
+                    <h3 th:text="${bike.brand}">Marca</h3>
+                    <p th:text="'Tipo: ' + ${bike.bikeType}">Tipo</p>
+                    <p th:text="'Taglia: ' + ${bike.size}">Taglia</p>
+                    <p th:text="'Descrizione: ' + ${bike.description}">Descrizione</p>
+                    <p th:text="'Prezzo: ' + ${bike.price}">Prezzo</p>
+                    <p th:text="'Regione: ' + ${bike.place}">Regione</p>
+                    <form th:action="@{/wishlist/remove(userId=${user.id}, bikeId=${bike.id})}" method="post">
+                        <button type="submit" class="action-button wishlist-remove-button">Rimuovi dalla Wishlist</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

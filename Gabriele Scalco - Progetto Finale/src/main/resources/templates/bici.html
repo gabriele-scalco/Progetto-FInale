@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bike Shop</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Bike Shop</h1>
+        <nav>
+            <a href="/profile">Profilo Utente</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sezione per il filtro -->
+        <div class="filter-section">
+            <form th:action="@{/filter}" method="get">
+                <label for="size">Taglia:</label>
+                <select name="size" id="size" th:value="${param.size}">
+                    <option value="">Tutte</option>
+                    <option value="S" th:selected="${param.size == 'S'}">S</option>
+                    <option value="M" th:selected="${param.size == 'M'}">M</option>
+                    <option value="L" th:selected="${param.size == 'L'}">L</option>
+                </select>
+
+                <label for="maxPrice">Prezzo massimo:</label>
+                <input type="number" name="maxPrice" id="maxPrice" th:value="${param.maxPrice}" placeholder="1000">
+
+                <label for="brand">Marca:</label>
+                <input type="text" name="brand" id="brand" th:value="${param.brand}" placeholder="Cerca marca">
+
+                <label for="place">Regione:</label>
+                <input type="text" name="place" id="place" th:value="${param.place}" placeholder="Cerca regione">
+
+                <label for="bikeType">Tipo di Bici:</label>
+                <select name="bikeType" id="bikeType" th:value="${param.bikeType}">
+                    <option value="">Tutti i tipi</option>
+                    <option value="Mountain" th:selected="${param.bikeType == 'Mountain'}">Mountain</option>
+                    <option value="Road" th:selected="${param.bikeType == 'Road'}">Road</option>
+                    <option value="Electric" th:selected="${param.bikeType == 'Electric'}">Electric</option>
+                </select>
+                
+                <!-- Campo per l'ordinamento -->
+                <label for="order">Ordina per prezzo:</label>
+                <select name="order" id="order" th:value="${param.order}">
+                    <option value="asc" th:selected="${param.order == 'asc'}">Crescente</option>
+                    <option value="desc" th:selected="${param.order == 'desc'}">Decrescente</option>
+                </select>
+
+                <button type="submit">Filtra e Ordina</button>
+            </form>
+        </div>
+        
+        <!-- Sezione per la lista dei bici -->           
+        <section id="bikes-list">
+            <div th:each="bike : ${bikes}" class="bike-item result-box">
+                <!-- Visualizzazione immagine -->
+                <div class="image-container">
+                    <img th:src="${bike.imagePath}" alt="Foto bici" class="bike-image" />
+                </div>
+
+                <!-- Informazioni sulla bici -->
+                <h2 th:text="${bike.brand}">Marca</h2>
+                <p th:text="'Taglia: ' + ${bike.size}">Taglia</p>
+                <p th:text="'Tipo di Bici: ' + ${bike.bikeType}">Tipo di Bici</p>
+                <p th:text="'Descrizione: ' + ${bike.description}">Descrizione</p>
+                <p th:text="'Prezzo: ' + ${bike.price}">Prezzo</p>
+                <p th:text="'Regione: ' + ${bike.place}">Regione</p>
+                <input type="hidden" name="userId" th:value="${bike.user.id}">
+                
+                <!-- Pulsanti azioni -->
+                <div class="button-group">
+                    <form th:action="@{/wishlist/add(bikeId=${bike.id})}" method="post">
+                        <button type="submit">Aggiungi a Wishlist</button>
+                    </form>
+                    <form th:action="@{/messages/send/{receiverId}/{bikeId}(receiverId=${bike.user.id}, bikeId=${bike.id})}" method="get">
+                        <button type="submit">Contatta Venditore</button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script th:inline="javascript">
+        [[${successMessage}]] && alert([[${successMessage}]]);
+    </script>
+</body>
+</html>

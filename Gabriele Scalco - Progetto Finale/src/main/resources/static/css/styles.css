@@ -1,0 +1,259 @@
+/* Stile di base */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(135deg, #007991 30%, #78ffd6 90%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #333;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+header nav a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    width: 100%;
+}
+
+/* Box di contenimento uniforme per tutte le sezioni */
+.section-wrapper,
+.filter-section,
+.results-wrapper,
+.profile-section,
+.bike-item,
+.result-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+/* Forziamo le larghezze uguali per .filter-section e .result-box */
+.filter-section, #bikes-list {
+    width: 100%;
+    max-width: 800px;
+    box-sizing: border-box;
+}
+
+/* Stile del Form */
+.form-group {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+label {
+    display: inline-block;
+    font-weight: bold;
+    width: 100px;
+    text-align: left;
+    margin-right: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+select {
+    width: calc(100% - 120px);
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+/* Bottoni */
+button, .submit-button, .login-button, .signup-button {
+    width: 250px;
+    padding: 10px;
+    
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px;
+}
+
+/* Stile degli annunci e wishlist */
+.bike-item,
+.result-box {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 100%;
+    max-width: 800px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+.bike-item h2,
+.result-box h3 {
+    margin: 0 0 10px;
+}
+
+.bike-item p,
+.result-box p {
+    margin: 5px 0;
+}
+
+.bike-item form, .result-box form {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.bike-item button, .result-box button {
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.bike-item button:hover, .result-box button:hover {
+    background-color: #0056b3;
+}
+
+/* Stile per la pagina di login e registrazione */
+.login-wrapper, .signup-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 2rem;
+}
+
+.login-box, .signup-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-box .register-link, .signup-box .login-link {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.login-box .register-link a, .signup-box .login-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-box .register-link a:hover, .signup-box .login-link a:hover {
+    color: #0056b3;
+}
+
+/* Stile per pulsanti di azione multipli */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.action-button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-button {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.edit-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.wishlist-remove-button {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.wishlist-remove-button:hover {
+    background-color: #cc0000;
+}
+
+.sent {
+    text-align: right;
+    background-color: #e6f3ff;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.received {
+    text-align: left;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+form {
+    margin-top: 10px;
+}
+
+textarea {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.conversation-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 1.5rem;
+    box-sizing: border-box;
+}
+
+.bike-image {
+    max-width: 200px; /* Adjust as needed */
+    max-height: 150px; /* Adjust as needed */
+    width: auto;
+    height: auto;
+}

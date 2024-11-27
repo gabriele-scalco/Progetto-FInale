@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifica Annuncio</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Modifica Annuncio</h1>
+        <nav>
+            <a href="/profile" class="nav-home">Torna al Profilo</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sezione per modifica della bici -->
+        <div class="profile-section results-wrapper">
+            <div class="image-preview">
+                <label>Immagine Attuale:</label>
+                <img th:src="${bike.imagePath}" alt="Foto bici" class="bike-image" />
+            </div>
+
+            <form th:action="@{/bikes/update}" method="post" th:object="${bike}" class="bike-form">
+                <input type="hidden" th:field="*{id}" />
+
+                <!-- Campo non modificabile per mostrare il tipo di bici -->
+                <div class="form-group">
+                    <label>Tipo di Bici:</label>
+                    <p th:text="${bike.bikeType}">Tipo</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="brand">Marca:</label>
+                    <input type="text" id="brand" th:field="*{brand}" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="size">Taglia:</label>
+                    <input type="text" id="size" th:field="*{size}" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Descrizione:</label>
+                    <input type="text" id="description" th:field="*{description}" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Prezzo:</label>
+                    <input type="number" id="price" th:field="*{price}" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="place">Regione:</label>
+                    <input type="text" id="place" th:field="*{place}" required />
+                </div>
+
+                <button type="submit" class="submit-button">Salva Modifiche</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

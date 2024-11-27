@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Invia Messaggio</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Invia un Messaggio</h1>
+        <nav>
+            <a href="/profile">Profilo Utente</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="send-message-section">
+            <div class="conversation-box"> 
+                <h2 th:text="'Messaggio per il venditore dell\'annuncio ID: ' + ${bikeId}">Annuncio</h2>
+                <form th:action="@{/messages/send}" th:object="${message}" method="post">
+                    <input type="hidden" name="receiverId" th:value="${receiverId}" />
+                    <input type="hidden" name="bikeId" th:value="${bikeId}" />
+
+                    <div class="form-group">
+                        <label for="content">Messaggio:</label>
+                        <textarea id="content" th:field="*{content}" rows="4" required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-button">Invia Messaggio</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
